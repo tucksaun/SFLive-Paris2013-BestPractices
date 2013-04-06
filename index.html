@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>42 bonnes pratiques pour Symfony2</title>
+
+        <meta name="description" content="X Bonnes Pratiques Symfony2"/>
+        <meta name="author" content="Tugdual Saunier"/>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="assets/css/solarized.css">
+        <link rel="stylesheet" href="css/custom.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="assets/css/solarized-light-highlight.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div id="sl-bar"></div>
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+<section id="bonnes-pratiques-pour-symfony2" class="level1">
+<h1>42 bonnes pratiques pour Symfony2</h1>
+<p>Tugdual Saunier (<em>@tucksaun</em>)</p>
+<p><img src="assets/symfony-logo.png" /> <img src="assets/sfl_paris_2013.png" /></p>
+</section>
+<section id="section" class="level1">
+<h1></h1>
+<section id="attention" class="level2">
+<h2>Attention</h2>
+</section>
+<section id="section-1" class="level2">
+<h2></h2>
+<p>Ce qui suit n'est trié ni par importance, ni par criticité.</p>
+</section>
+<section id="section-2" class="level2">
+<h2></h2>
+<p>Bien entendu toute bonne pratique est discutable.</p>
+</section>
+<section id="section-3" class="level2">
+<h2></h2>
+<p>Il y a toujours des exceptions.</p>
+</section>
+<section id="section-4" class="level2">
+<h2></h2>
+<p>Soyez donc <strong>pragmatiques!</strong></p>
+<p>Et remettez dans le <strong>contexte</strong>.</p>
+</section>
+</section>
+<section id="section-5" class="level1">
+<h1></h1>
+<section id="pour-commencer" class="level2">
+<h2>Pour commencer</h2>
+</section>
+<section id="documentation" class="level2" slide-number="1">
+<h2>Documentation</h2>
+<p>La documentation est abondante.</p>
+<p><strong>Lisez la.</strong></p>
+</section>
+<section id="documentation-1" class="level2" slide-number="1">
+<h2>Documentation</h2>
+<p>Vous l'avez déja lue?</p>
+<p><strong>Relisez la réguliérement</strong></p>
+</section>
+<section id="documentation-2" class="level2" slide-number="1">
+<h2>Documentation</h2>
+<p>Quand vous cherchez de la doc ou de l'aide.</p>
+<p>Utilisez <code>Symfony2</code> (majuscule, pas d'espace).</p>
+<p>Il y a tellement de ressources disponibles pour symfony (1.x) que vous perdriez du temps à trier.</p>
+</section>
+<section id="bootstrapping" class="level2" slide-number="2">
+<h2>Bootstrapping</h2>
+<p>À moins d'être à l'aise et de maîtriser parfaitement Symfony2,</p>
+<p><strong>Utilisez la Standard Edition.</strong></p>
+</section>
+<section id="bootstrapping-1" class="level2" slide-number="2">
+<h2>Bootstrapping</h2>
+<p><strong>Utilisez la Standard Edition.</strong></p>
+<p><strong>Mais nettoyez!</strong></p>
+<ul>
+<li>Supprimez le AcmeDemoBundle</li>
+<li>Supprimez les dépendances dont vous n'avez pas besoin</li>
+<li>Changez le favicon</li>
+<li>etc</li>
+</ul>
+</section>
+<section id="profiler" class="level2" slide-number="3">
+<h2>Profiler</h2>
+<p>La Web Debug Toolbar vous donne de nombreuses informations utiles.</p>
+<p><strong>Ayez toujours un oeil dessus.</strong></p>
+</section>
+<section id="profiler-1" class="level2" slide-number="4">
+<h2>Profiler</h2>
+<p><strong>Interceptez les redirections</strong> (en dev).</p>
+<p>Cela vous facilitera le debug et vous permettra de voir plus facilement les informations collectées par le profiler.</p>
+</section>
+</section>
+<section id="section-6" class="level1">
+<h1></h1>
+<section id="organisation" class="level2">
+<h2>Organisation</h2>
+</section>
+<section id="scm-ignore" class="level2" slide-number="5">
+<h2>SCM ignore</h2>
+<ul>
+<li>app/cache/*</li>
+<li>app/logs/*</li>
+<li>app/bootstrap.php.cache</li>
+<li>web/bundles</li>
+<li>vendor</li>
+<li>app/config/parameters.yml</li>
+</ul>
+<p> </p>
+<p>Mais pour ce dernier, inclure un fichier app/config/parameters.yml.dist</p>
+</section>
+<section id="vos-mots-de-passe-sont-confidentiels" class="level2" slide-number="6">
+<h2>Vos mots de passe sont confidentiels!</h2>
+<ul>
+<li>Ne mettez pas d'identifiants en dur dans la configuration (utilisez les parameters)</li>
+<li>Ne versionnez pas votre <code>parameters.[ini|yml]</code></li>
+<li>Utilisez les variables d'environnements</li>
+</ul>
+</section>
+<section id="vos-mots-de-passe-sont-confidentiels-1" class="level2" slide-number="6">
+<h2>Vos mots de passe sont confidentiels!</h2>
+<pre><code># app/config/config.yml
+doctrine:
+    dbal:
+        username: %database_username%
+        password: %database_password%</code></pre>
+</section>
+<section id="vos-mots-de-passe-sont-confidentiels-2" class="level2" slide-number="6">
+<h2>Vos mots de passe sont confidentiels!</h2>
+<pre><code># app/config/parameters.yml
+parameters:
+    database_username:  symfony
+    database_password:  s3cr3t</code></pre>
+</section>
+<section id="vos-mots-de-passe-sont-confidentiels-3" class="level2" slide-number="6">
+<h2>Vos mots de passe sont confidentiels!</h2>
+<pre><code>&lt;VirtualHost *:80&gt;
+    Servername www.domain.tld
+    # ...
+    SetEnv SYMFONY__DATABASE_USERNAME &quot;symfony&quot;
+    SetEnv SYMFONY__DATABASE_PASSWORD &quot;s3cr3t&quot;
+&lt;/VirtualHost&gt;</code></pre>
+</section>
+<section id="vos-mots-de-passe-sont-confidentiels-4" class="level2" slide-number="6">
+<h2>Vos mots de passe sont confidentiels!</h2>
+<p>Ce n'est pas limité aux mots de passe, valable pour toute information 'confidentielle'.</p>
+</section>
+<section id="coding-style" class="level2" slide-number="7">
+<h2>Coding Style</h2>
+<p>Respectez tout le temps <em>le même coding style</em>.</p>
+<p>De préférence suivez celui de Symfony2.</p>
+</section>
+<section id="coding-style-1" class="level2" slide-number="7">
+<h2>Coding Style</h2>
+<p>Un outil est disponible pour vous aider à respecter le coding style Symfony2:</p>
+<p>PHP Coding Standards Fixer</p>
+<p>http://cs.sensiolabs.org/</p>
+</section>
+<section id="applications-application" class="level2" slide-number="8">
+<h2>Applications? Application!</h2>
+<p>Par défaut, une seule application existe dans un projet Symfony2.</p>
+<p>Il est extrêmement rare d'en avoir besoin de plusieurs, <strong>réfléchissez-y bien</strong>.</p>
+</section>
+<section id="applications" class="level2" slide-number="8">
+<h2>Applications</h2>
+<p>Si vous voulez vraiment en utiliser plusieurs,</p>
+<p>votre arborescence doit être uniforme et respecter un maximum celle de la Standard Edition (dossier <code>app</code>).</p>
+</section>
+<section id="bundles" class="level2" slide-number="9">
+<h2>Bundles</h2>
+<p>Votre projet est composé de <em>Bundle<strong>s</strong></em>.</p>
+</section>
+<section id="bundles-1" class="level2" slide-number="9">
+<h2>Bundles</h2>
+<p>Un Bundle = Une Fonctionnalité</p>
+<pre><code>UserBundle    =&gt; Gestion Utilisateur
+ForumBundle   =&gt; Forum
+ProductBundle =&gt; Gestion de produits
+StoreBundle   =&gt; E-Commerce</code></pre>
+<p>Si vos bundles ont pour vocation à être réutilisés,</p>
+<p>et si vos bundles sont découplés.</p>
+</section>
+<section id="bundles-componentslibrairies" class="level2" slide-number="10">
+<h2>Bundles &amp; Components/Librairies</h2>
+<p>Idéalement, vos bundles ne doivent être que le lien entre Symfony2 et votre logique métier.</p>
+<p>Cette logique métier doit être indépendante.</p>
+<p>Inspirez vous du découplage entre Bundles et Components de Symfony2.</p>
+</section>
+<section id="bundles-componentslibrairies-1" class="level2" slide-number="10">
+<h2>Bundles &amp; Components/Librairies</h2>
+<p>Symfony\Bundle\FrameworkBundle\<strong>DependencyInjection</strong></p>
+<p>Symfony\Component\<strong>DependencyInjection</strong></p>
+<p> </p>
+<p>Symfony\Bundle\FrameworkBundle\<strong>Validator</strong></p>
+<p>Symfony\Component\<strong>Validator</strong></p>
+<p> </p>
+<p>Symfony\Bundle\FrameworkBundle\<strong>HttpKernel</strong></p>
+<p>Symfony\Component\<strong>HttpKernel</strong></p>
+<p> </p>
+<p>Symfony\Bundle\<strong>Twig</strong>Bundle</p>
+<p>\<strong>Twig</strong></p>
+</section>
+<section id="routing" class="level2" slide-number="11">
+<h2>Routing</h2>
+<p>Aucune route ne doit être déclarée dans <code>app/config/routing.yml</code>.</p>
+<p>Ce fichier doit uniquement contenir des imports, les déclarations des routes doivent se trouver dans le même bundle que le controlleur associé à cette route.</p>
+</section>
+<section id="templating" class="level2" slide-number="12">
+<h2>Templating</h2>
+<p>Suivez les conseils de Grégoire Pineau ;)</p>
+</section>
+<section id="i18n" class="level2" slide-number="13">
+<h2>I18N</h2>
+<p><strong>Internationalisez dès le début</strong></p>
+<p>L'internationalisation après coup est bien plus longue et complexe.</p>
+</section>
+</section>
+<section id="section-7" class="level1">
+<h1></h1>
+<section id="controlleurs" class="level2">
+<h2>Controlleurs</h2>
+</section>
+<section id="forms" class="level2" slide-number="14">
+<h2>Forms</h2>
+<p>Après le traitement avec succès en POST, vous devez toujours rediriger l'utilisateur :</p>
+<ul>
+<li>sécurité</li>
+<li>ergonomie</li>
+<li>évite la duplication</li>
+</ul>
+</section>
+<section id="orm" class="level2" slide-number="15">
+<h2>ORM</h2>
+<p>Les queries doivent être créées dans des classes dédiées (Repository, Peer), pas dans les controlleurs.</p>
+</section>
+<section id="incontournable" class="level2" slide-number="16">
+<h2>Incontournable</h2>
+<p><strong>Aucun code métier dans les controlleurs.</strong></p>
+<p>Ils doivent récupérer les services (ou instancier les objets métier) et les appeler puis passer le résultat à la vue.</p>
+<p>C'est tout!</p>
+</section>
+<section id="longueur" class="level2" slide-number="17">
+<h2>Longueur</h2>
+<p>Max 20 lignes par action</p>
+<p>Au dessus, cela signifie souvent qu'ils contiennent de la logique métier.</p>
+<p>Pas plus de 10 actions par controlleurs</p>
+<p>Au dessus, ça devient inmaintenable.</p>
+</section>
+<section id="longueur-1" class="level2" slide-number="17">
+<h2>Longueur</h2>
+<p>Les annotations peuvent vous permettre de garder vos controlleurs légers et sans fioritures.</p>
+<p> </p>
+<p>Elles vous permettent également de centraliser l'information et de rassembler une déclaration de route avec l'action associée.</p>
+</section>
+</section>
+<section id="section-8" class="level1">
+<h1></h1>
+<section id="modèle" class="level2">
+<h2>Modèle</h2>
+</section>
+<section id="utils" class="level2" slide-number="18">
+<h2>&quot;Utils&quot;</h2>
+<p>Ne créez pas de classes &quot;utilitaires&quot; remplies de méthodes statiques.</p>
+</section>
+<section id="forms-1" class="level2" slide-number="19">
+<h2>Forms</h2>
+<p>Ecrivez vos formulaires dans des form types.</p>
+<ul>
+<li>Réutilisablité</li>
+<li>N'alourdit pas les controlleurs</li>
+<li>Organisation plus &quot;propre&quot;</li>
+</ul>
+</section>
+<section id="forms-2" class="level2" slide-number="19">
+<h2>Forms</h2>
+<p>Déclarez ces types en services.</p>
+</section>
+<section id="forms-3" class="level2" slide-number="19">
+<h2>Forms</h2>
+<p>Si vos form types ont des dépendances, injectez les par le constructeur, pas par les options.</p>
+</section>
+<section id="sessions" class="level2" slide-number="20">
+<h2>Sessions</h2>
+<p>La logique de persistance en session doit se trouver dans un service avec la session injectée.</p>
+<p>Pas dans les controlleurs.</p>
+</section>
+<section id="sessions-1" class="level2" slide-number="21">
+<h2>Sessions</h2>
+<p>Minimisez la quantité de données en session.</p>
+</section>
+<section id="logging" class="level2" slide-number="22">
+<h2>Logging</h2>
+<p>La configuration par défaut de monolog n'écrira les logs de débug qu'en cas d'erreur.</p>
+<p>N'hésitez donc pas à logger.</p>
+</section>
+<section id="orm-1" class="level2" slide-number="23">
+<h2>ORM</h2>
+<p>Utilisez vos entités pour le stockage d'informations.</p>
+<p>Utilisez des classes métiers dédiées pour les manipuler.</p>
+<p>&quot;Treat your entities like princesses&quot;.</p>
+<p>Facilite les TU, le refactoring et le découpage bundles/components.</p>
+</section>
+</section>
+<section id="section-9" class="level1">
+<h1></h1>
+<section id="dic" class="level2">
+<h2>DIC</h2>
+</section>
+<section id="dic-1" class="level2" slide-number="24">
+<h2>DIC</h2>
+<p>Le DIC est sans doute l'outil le plus puissant de Symfony2.</p>
+<p>C'est lui qui apporte toute sa flexibilité à Symfony2.</p>
+<p>Lisez, apprenez, testez!</p>
+</section>
+<section id="dic-2" class="level2" slide-number="25">
+<h2>DIC</h2>
+<p>Utilisez la configuration XML dans vos bundles.</p>
+</section>
+<section id="dic-3" class="level2" slide-number="26">
+<h2>DIC</h2>
+<p>N'injectez pas le container.</p>
+<p>Injectez uniquement les dépendances nécessaires.</p>
+</section>
+<section id="dic-4" class="level2" slide-number="27">
+<h2>DIC</h2>
+<p>Ne mettez pas de chemin en dur.</p>
+<p>Vous pouvez utiliser <code>%kernel.root_dir%</code> ou déterminer les chemins au moment de la compilation du DIC.</p>
+</section>
+</section>
+<section id="section-10" class="level1">
+<h1></h1>
+<section id="vue" class="level2">
+<h2>Vue</h2>
+</section>
+<section id="utilisez-twig" class="level2" slide-number="28">
+<h2>Utilisez Twig</h2>
+<p>Il vous contraindra à respecter le <strong>MVC</strong></p>
+</section>
+<section id="utilisez-twig-1" class="level2" slide-number="28">
+<h2>Utilisez Twig</h2>
+<ul>
+<li>Intuitif</li>
+<li>Performant</li>
+<li>Puissant</li>
+<li>Sécurisé (Autoescaping)</li>
+</ul>
+</section>
+<section id="assets" class="level2" slide-number="29">
+<h2>Assets</h2>
+<p><strong>Utilisez Assetic</strong></p>
+</section>
+</section>
+<section id="section-11" class="level1">
+<h1></h1>
+<section id="extensibilité-maintenabilité" class="level2">
+<h2>Extensibilité / Maintenabilité</h2>
+</section>
+<section id="bundles-2" class="level2" slide-number="30">
+<h2>Bundles</h2>
+<p>Vous ne devez pas avoir d'import de configuration des bundles dans <code>app/config/config.yml</code>.</p>
+<p>C'est l'extension DI du bundle qui doit s'en charger.</p>
+</section>
+<section id="bundles-3" class="level2" slide-number="31">
+<h2>Bundles</h2>
+<p>Utilisez la configuration sémantique</p>
+<pre><code># app/config/config.yml
+my_bundle:
+    foo: bar
+    my_feat_is_enabled: true
+    feat_config:
+        lorem: ipsum</code></pre>
+</section>
+<section id="bundles-4" class="level2" slide-number="31">
+<h2>Bundles</h2>
+<p>Validez cette configuration vous permet:</p>
+<ul>
+<li>de modulariser (charger si nécessaire) vos services.</li>
+<li>de vous assurer que la configuration est correcte au moment du warmup...</li>
+<li>et d'afficher des messages clairs au développeur en cas d'erreur.</li>
+</ul>
+</section>
+<section id="commandes" class="level2" slide-number="32">
+<h2>Commandes</h2>
+<p>Ecrivez des commandes pour vos batches et tâches répétitives.</p>
+</section>
+<section id="tests" class="level2" slide-number="33">
+<h2>Tests</h2>
+<p>Testez unitairement et fonctionnellement!</p>
+</section>
+</section>
+<section id="section-12" class="level1">
+<h1></h1>
+<section id="prod" class="level2">
+<h2>PROD</h2>
+</section>
+<section id="front-controller" class="level2" slide-number="34">
+<h2>Front controller</h2>
+<p>Ne déployez pas <code>web/app_dev.php</code></p>
+<p>Pour être plus précis, le seul front controller à déployer est <code>web/app.php</code></p>
+</section>
+<section id="forms-4" class="level2" slide-number="35">
+<h2>Forms</h2>
+<p>Surtout ne désactivez pas le CSRF.</p>
+</section>
+<section id="forms-5" class="level2" slide-number="35">
+<h2>Forms</h2>
+<p>Changez la clef <code>secret</code> du <code>parameters.yml</code>!</p>
+</section>
+<section id="forms-6" class="level2" slide-number="35">
+<h2>Forms</h2>
+<p>Rappelez vous, &quot;Vos mots de passe sont confidentiels!&quot;.</p>
+<p>Le <code>secret</code> l'est également!</p>
+<p>(D'où son nom)</p>
+</section>
+<section id="forms-7" class="level2" slide-number="35">
+<h2>Forms</h2>
+<p>Encore mieux, utilisez en plus l'option <code>intention</code> dans vos formulaires.</p>
+<p>Cela rendra le token unique pour chaque type de formulaire.</p>
+</section>
+<section id="doctrine" class="level2" slide-number="36">
+<h2>Doctrine</h2>
+<p>Activez les caches Doctrine (metadata et query).</p>
+<p>Aucune incidence sur le fonctionnement, juste sur les perfs.</p>
+</section>
+<section id="personnalisez-vos-pages-derreurs" class="level2" slide-number="37">
+<h2>Personnalisez vos pages d'erreurs</h2>
+<ul>
+<li>C'est plus classe</li>
+<li>Évite de reconnaître la page d'erreur par défaut</li>
+</ul>
+</section>
+<section id="logs" class="level2" slide-number="38">
+<h2>Logs</h2>
+<p>La configuration de monolog est très bien pour la prod.</p>
+<p>N'activez pas le log de toutes les requêtes!</p>
+</section>
+<section id="cache" class="level2" slide-number="39">
+<h2>Cache</h2>
+<p>Cacher les pages est simple avec Symfony2.</p>
+<p>Ne générez pas deux fois le même contenu, <strong>mettez en cache</strong>.</p>
+</section>
+<section id="php" class="level2" slide-number="40">
+<h2>PHP</h2>
+<p><strong>Utilisez PHP 5.4.</strong></p>
+<p>Vous gagnerez en performance et en consommation mémoire.</p>
+</section>
+<section id="php-1" class="level2" slide-number="41">
+<h2>PHP</h2>
+<p><strong>Installez et activez APC.</strong></p>
+<p>Vous gagnerez en performance.</p>
+<p>(Ne sera normalement plus nécessaire avec PHP 5.5 ;) )</p>
+</section>
+</section>
+<section id="section-13" class="level1">
+<h1></h1>
+<section id="pour-finir" class="level2">
+<h2>Pour finir</h2>
+</section>
+<section id="section-14" class="level2">
+<h2></h2>
+<figure>
+<img src="assets/chevaux.png" />
+</figure>
+</section>
+<section id="section-15" class="level2" slide-number="42">
+<h2></h2>
+<p>N'oubliez pas que Symfony2 est un Framework <strong>PHP</strong> <strong>Objet</strong></p>
+</section>
+<section id="section-16" class="level2" slide-number="42">
+<h2></h2>
+<p>Ne vous demandez donc pas</p>
+<p><strong>&quot;Comment faire ceci en Symfony2&quot;</strong>,</p>
+<p> </p>
+<p>mais demandez vous</p>
+<p><strong>&quot;Comment faire ceci en PHP Objet&quot;</strong>.</p>
+</section>
+<section id="section-17" class="level2" slide-number="42">
+<h2></h2>
+<p>Respectez les bonnes pratiques PHP.</p>
+<p>Respectez les bonnes pratiques de la POO.</p>
+</section>
+<section id="section-18" class="level2" slide-number="42">
+<h2></h2>
+<ul>
+<li>Pas de références</li>
+<li>Pas de globals</li>
+<li>Pas de short tags</li>
+<li>Type Hinting</li>
+<li>UTF-8</li>
+<li>PSR-x</li>
+<li>...</li>
+</ul>
+</section>
+<section id="section-19" class="level2" slide-number="42">
+<h2></h2>
+<p>ainsi que celles du CSS, HTML, JavaScript, Twig, etc ...</p>
+</section>
+<section id="section-20" class="level2" slide-number="42">
+<h2></h2>
+<p>en bref, respectez également les bonnes pratiques de tous les autres outils que vous utilisez.</p>
+</section>
+<section id="section-21" class="level2" slide-number="42">
+<h2></h2>
+<p>mais également celles du web, de la gestion de projet, du développement en général.</p>
+</section>
+</section>
+<section id="section-22" class="level1">
+<h1></h1>
+<section id="questions" class="level2">
+<h2>Questions ?</h2>
+</section>
+<section id="merci-à-tous" class="level2">
+<h2>Merci à tous</h2>
+</section>
+</section>
+            </div>
+
+            <div class="slide-number">
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            function currentPageFormatter(event) {
+
+                var formattedStr = '';
+
+                if(event.currentSlide && event.currentSlide.getAttribute('slide-number')) {
+                   formattedStr = event.currentSlide.getAttribute('slide-number') + "/42";
+                }
+
+                return formattedStr;
+            }
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: true,
+                center: true,
+
+                // theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                theme: null, // load i with <style> element in <head>
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'assets/js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+            // Fires on load
+            Reveal.addEventListener('ready', function( event ) {
+                // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+                document.getElementsByClassName('slide-number').item(0).innerHTML = currentPageFormatter(event);
+            } );
+
+            // Fires each time a new slide is activated
+            Reveal.addEventListener('slidechanged', function( event ) {
+                // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+                document.getElementsByClassName('slide-number').item(0).innerHTML = currentPageFormatter(event);
+            } );
+
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,30 @@
+#sl-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000 url('../assets/sensiolabs.png') no-repeat 5px 0px;
+    height: 45px;
+    width: 100%;
+}
+.reveal .progress span {
+  background-color: #82e83e;
+}
+
+.slide-number {
+  display: block;
+  position: fixed;
+  text-align: right;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #82e83e;
+  right: 20px;
+  bottom: 15px;
+  font-size:24px !important;
+  width: 100%;
+}
+
+#bonnes-pratiques-pour-symfony2 img:first-child
+{
+  height: 211px;
+  padding-right: 90px;
+}
